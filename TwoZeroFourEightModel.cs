@@ -37,9 +37,43 @@ namespace twozerofoureight
             NotifyAll();
         }
 
+        private bool check_empty()
+        {
+            for(int i = 0; i < boardSize; i++)
+            {
+                for(int j = 0; j < boardSize; j++)
+                {
+                    if(board[i,j] == 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private bool check_near()
+        {
+            for(int i = 0; i < boardSize; i++)
+            {
+                try
+                {
+                    for (int j = 0; j < boardSize; j++)
+                    {
+
+                        if (board[i, j] == board[i + 1, j] || board[i, j] == board[i, j + 1])
+                        {
+                            return false;
+                        }
+                    }
+                }
+                catch (Exception) { }
+            }
+            return true;
+        }
         private int[,] Random(int[,] input)
         {
-            while (true)
+            while (check_empty())
             {
                 int x = rand.Next(boardSize);
                 int y = rand.Next(boardSize);
@@ -49,6 +83,11 @@ namespace twozerofoureight
                     break;
                 }
             }
+            if (!check_empty())
+            {
+                checkGameOver = check_near();
+            }
+        
             return input;
         }
 
@@ -82,6 +121,7 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        Score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
@@ -134,6 +174,7 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        Score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
@@ -188,6 +229,7 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        Score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }
@@ -239,6 +281,7 @@ namespace twozerofoureight
                     if (j > 0 && buffer[j] != 0 && buffer[j] == buffer[j - 1])
                     {
                         buffer[j - 1] *= 2;
+                        Score += buffer[j - 1];
                         buffer[j] = 0;
                     }
                 }

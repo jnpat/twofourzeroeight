@@ -32,6 +32,7 @@ namespace twozerofoureight
 
         private void UpdateTile(Label l, int i)
         {
+            sc.Text = model.getScore().ToString();
             if (i != 0)
             {
                 l.Text = Convert.ToString(i);
@@ -41,19 +42,19 @@ namespace twozerofoureight
             switch (i)
             {
                 case 0:
-                    l.BackColor = Color.Gray;
+                    l.BackColor = Color.LightSteelBlue;
                     break;
                 case 2:
-                    l.BackColor = Color.DarkGray;
+                    l.BackColor = Color.PaleVioletRed;
                     break;
                 case 4:
                     l.BackColor = Color.Orange;
                     break;
                 case 8:
-                    l.BackColor = Color.Red;
+                    l.BackColor = Color.Sienna;
                     break;
                 default:
-                    l.BackColor = Color.Green;
+                    l.BackColor = Color.DarkOliveGreen;
                     break;
             }
         }
@@ -76,7 +77,7 @@ namespace twozerofoureight
             UpdateTile(lbl32,board[3, 2]);
             UpdateTile(lbl33,board[3, 3]);
         }
-
+        
         private void btnLeft_Click(object sender, EventArgs e)
         {
             controller.ActionPerformed(TwoZeroFourEightController.LEFT);
@@ -96,6 +97,58 @@ namespace twozerofoureight
         {
             controller.ActionPerformed(TwoZeroFourEightController.DOWN);
         }
+        
+        
+        private void btnRight_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            switch (e.KeyChar)
+            {
+                case (char)Keys.Left:
+                    controller.ActionPerformed(TwoZeroFourEightController.LEFT);
+                    break;
+                case (char)Keys.Right:
+                    controller.ActionPerformed(TwoZeroFourEightController.RIGHT);
+                    break;
+                case (char)Keys.Up:
+                    controller.ActionPerformed(TwoZeroFourEightController.UP);
+                    break;
+                case (char)Keys.Down:
+                    controller.ActionPerformed(TwoZeroFourEightController.DOWN);
+                    break;
+            }
+            if (model.GameOver())
+            {
+                popGameOver();
+            }
+        }
 
+        private void btnRight_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Left:
+                    controller.ActionPerformed(TwoZeroFourEightController.LEFT);
+                    break;
+                case Keys.Right:
+                    controller.ActionPerformed(TwoZeroFourEightController.RIGHT);
+                    break;
+                case Keys.Up:
+                    controller.ActionPerformed(TwoZeroFourEightController.UP);
+                    break;
+                case Keys.Down:
+                    controller.ActionPerformed(TwoZeroFourEightController.DOWN);
+                    break;
+                
+            }
+            if (model.GameOver())
+            {
+                popGameOver();
+            }
+            
+        }
+        private void popGameOver()
+        {
+            MessageBox.Show("GAMEOVER","",MessageBoxButtons.OK);
+        }
     }
 }
